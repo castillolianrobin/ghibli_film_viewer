@@ -22,82 +22,84 @@
       </div>
     </div>
     <!-- Content -->
-    <div class="p-3 w-100 overflow-hidden d-flex flex-column flex-md-row">
-      <!-- Movie Banner -->
-      <div
-        class="mt-3 pl-5 pr-5 position-relative d-flex flex-column align-items-center flex-md-shrink-1"
-      >
-        <!-- View Detail Btn -->
-        <div class="position-absolute d-md-none" style="top: -5%">
-          <transition name="fade">
-            <button
-              v-if="film.image"
-              class="btn btn-sm btn-light ml-auto shadow"
-              @click="viewDetails"
-            >
-              View Details &#8642;
-            </button>
-          </transition>
-        </div>
-        <!-- Image -->
-        <img
-          ref="mov_img"
-          class="w-100 shadow"
-          :src="film.image"
-          :alt="film.image"
-        />
-      </div>
-
-      <div class="mt-5 mt-md-3 pt-2 pt-md-4 border-top">
-        <div class="row mt-1">
-          <!-- Japanese -->
-          <DetailItem
-            label="Japanese Title"
-            :value="film.original_title"
-            class="col-6"
-          ></DetailItem>
-          <!-- Release Date -->
-          <DetailItem
-            label="Release Date"
-            :value="film.release_date"
-            class="col-6"
-          ></DetailItem>
+    <div class="container">
+      <div class="p-3 overflow-hidden row">
+        <!-- Movie Banner -->
+        <div
+          class="mt-3 pl-5 pr-5 position-relative d-flex flex-column align-items-center col-12 col-md-4"
+        >
+          <!-- View Detail Btn -->
+          <div class="position-absolute d-md-none" style="top: -5%">
+            <transition name="fade">
+              <button
+                v-if="film.image"
+                class="btn btn-sm btn-light ml-auto shadow"
+                @click="viewDetails"
+              >
+                View Details &#8642;
+              </button>
+            </transition>
+          </div>
+          <!-- Image -->
+          <img
+            ref="mov_img"
+            class="w-100 shadow"
+            :src="film.image"
+            :alt="film.image"
+          />
         </div>
 
-        <div class="row mt-1">
-          <!-- Producer -->
-          <DetailItem
-            label="Produced By"
-            :value="film.producer"
-            class="col-6"
-          ></DetailItem>
+        <div class="mt-5 mt-md-3 pt-2 pt-md-4 border-top col">
+          <div class="row mt-1">
+            <!-- Japanese -->
+            <DetailItem
+              label="Japanese Title"
+              :value="film.original_title"
+              class="col-6"
+            ></DetailItem>
+            <!-- Release Date -->
+            <DetailItem
+              label="Release Date"
+              :value="film.release_date"
+              class="col-6"
+            ></DetailItem>
+          </div>
+
+          <div class="row mt-1">
+            <!-- Producer -->
+            <DetailItem
+              label="Produced By"
+              :value="film.producer"
+              class="col-6"
+            ></DetailItem>
+
+            <!-- Director -->
+            <DetailItem
+              label="Directed By"
+              :value="film.director"
+              class="col-6"
+            ></DetailItem>
+          </div>
 
           <!-- Director -->
-          <DetailItem
-            label="Directed By"
-            :value="film.director"
-            class="col-6"
-          ></DetailItem>
-        </div>
+          <DetailItem label="Description" :value="film.description"></DetailItem>
 
-        <!-- Director -->
-        <DetailItem label="Description" :value="film.description"></DetailItem>
-
-        <div class="mt-4">
-          <button
-            class="d-block m-auto btn btn-sm text-info border-0 p-0 pl-1 pr-1"
-            @click="viewBanner = !viewBanner"
-          >
-            {{ viewBanner ? "Hide" : "View" }} Banner
-          </button>
-          <transition name="fade">
-            <img
-              v-if="viewBanner"
-              class="shadow w-100"
-              :src="film.movie_banner"
-              :alt="film.image"
-            />
-          </transition>
+          <div class="mt-4">
+            <button
+              class="d-block m-auto btn btn-sm text-info border-0 p-0 pl-1 pr-1"
+              @click="viewBanner = !viewBanner"
+            >
+              {{ viewBanner ? "Hide" : "View" }} Banner
+            </button>
+            <transition name="fade">
+              <img
+                v-if="viewBanner"
+                class="shadow w-100"
+                :src="film.movie_banner"
+                :alt="film.image"
+              />
+            </transition>
+          </div>
         </div>
       </div>
     </div>

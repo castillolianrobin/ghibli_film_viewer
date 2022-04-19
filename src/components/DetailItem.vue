@@ -1,7 +1,7 @@
 <template>
   <div v-bind="$attrs" v-on="$listeners">
     <h6 class="mb-1 text-uppercase">{{ label }}</h6>
-    <p>{{ value }}</p>
+    <p class="text-justify">{{ value }}</p>
   </div>
 </template>
 
