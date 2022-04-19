@@ -1,6 +1,6 @@
 <template>
   <div class="h-100 pb-5">
-    <!-- Logo -->
+    <!-- Banner -->
     <div class="mb-3">
       <div class="w-100 d-flex justify-content-between position-fixed">
         <img src="@/assets/icon-1.png" alt="Icon 1" height="75px" />
@@ -21,25 +21,9 @@
         </div>
       </transition-group>
     </div>
-    <div class="bg-white fixed-bottom top-0 row p-3 align-items-center border-top">
-      <h6 class="col-6 text-center text-md-left text-secondary m-0">
-        Displaying {{ (currentPage * 4) - 3 }} - {{ (isLast ? totalFilms : currentPage * 4) }} out of {{ totalFilms }}
-      </h6>
-      <button
-        class="m-2 col btn btn-info"
-        :disabled="isFirst"
-        @click="prevPage"
-      >
-        Previous
-      </button>
-      <button
-        class="m-2 col btn btn-info"
-        :disabled="isLast"
-        @click="nextPage"
-      >
-        Next
-      </button>
-    </div>
+
+    <!-- Pagination -->
+    <ListPagination v-model="currentPage" :length="totalFilms"></ListPagination>
   </div>
 </template>
 
@@ -47,8 +31,9 @@
 // 4 items per page that includes the image, banner, title with original title, description
 import Ghibli from "@/api/GhibliFilms";
 import FilmCard from '@/components/FilmCard.vue';
+import ListPagination from '@/components/ListPagination.vue';
 export default {
-  components: { FilmCard },
+  components: { FilmCard, ListPagination },
   name: "ListView",
   data() {
     return {
@@ -63,29 +48,11 @@ export default {
       let start = (this.currentPage * 4) - 4;
       return this.films.slice(start, start + 4);
     },
-    isLast() {
-      return !(this.currentPage * 4 < this.totalFilms);
-    },
-    isFirst() {
-      return !(this.currentPage * 4 - 4 > 0);
-    },
   },
 
   methods: {
     viewDetails(id) {
       this.$router.push(`view/${id}`);
-    },
-    nextPage() {
-      if (!this.isLast) {
-        this.currentPage++;
-        window.scrollTo(0,100); 
-      } 
-    },
-    prevPage() {
-      if (!this.isFirst) {
-        this.currentPage--;
-        window.scrollTo(0,100); 
-      }
     },
   },
 

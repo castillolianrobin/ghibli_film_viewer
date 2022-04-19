@@ -1,5 +1,8 @@
 <template>
-  <div v-if="!film.title" class="h-100 w-100 d-flex align-items-center justify-content-center">
+  <div
+    v-if="!film.title"
+    class="h-100 w-100 d-flex align-items-center justify-content-center"
+  >
     {{ message }}
   </div>
   <div v-else class="h-100 position-relative">
@@ -48,37 +51,44 @@
       <div class="mt-5 mt-md-3 pt-2 pt-md-4 border-top">
         <div class="row mt-1">
           <!-- Japanese -->
-          <div class="col-6">
-            <h6 class="mb-1 text-uppercase">Japanese Title</h6>
-            <p>{{ film.original_title }}</p>
-          </div>
+          <DetailItem
+            label="Japanese Title"
+            :value="film.original_title"
+            class="col-6"
+          ></DetailItem>
           <!-- Release Date -->
-          <div class="col-6">
-            <h6 class="mb-1 text-uppercase">Release Date</h6>
-            <p>{{ film.release_date }}</p>
-          </div>
+          <DetailItem
+            label="Release Date"
+            :value="film.release_date"
+            class="col-6"
+          ></DetailItem>
         </div>
 
         <div class="row mt-1">
-          <div class="col-6">
-            <!-- Release Date -->
-            <h6 class="mb-1 text-uppercase">Produced By</h6>
-            <p>{{ film.producer }}</p>
-          </div>
+          <!-- Producer -->
+          <DetailItem
+            label="Produced By"
+            :value="film.producer"
+            class="col-6"
+          ></DetailItem>
 
-          <div class="col-6">
-            <!-- Release Date -->
-            <h6 class="mb-1 text-uppercase">Directed By</h6>
-            <p>{{ film.director }}</p>
-          </div>
+          <!-- Director -->
+          <DetailItem
+            label="Directed By"
+            :value="film.director"
+            class="col-6"
+          ></DetailItem>
         </div>
-        
-        <h6 class="mt-1 text-uppercase">Description</h6>
-        <p>{{ film.description }}</p>
+
+        <!-- Director -->
+        <DetailItem label="Description" :value="film.description"></DetailItem>
 
         <div class="mt-4">
-          <button class="d-block m-auto btn btn-sm text-info border-0 p-0 pl-1 pr-1" @click="viewBanner = !viewBanner">
-            {{ viewBanner ? 'Hide' : 'View' }} Banner
+          <button
+            class="d-block m-auto btn btn-sm text-info border-0 p-0 pl-1 pr-1"
+            @click="viewBanner = !viewBanner"
+          >
+            {{ viewBanner ? "Hide" : "View" }} Banner
           </button>
           <transition name="fade">
             <img
@@ -96,13 +106,15 @@
 
 <script>
 import Ghibli from "@/api/GhibliFilms";
+import DetailItem from "@/components/DetailItem.vue";
 export default {
+  components: { DetailItem },
   name: "DetailsView",
   data() {
     return {
       film: {},
       viewBanner: false,
-      message: 'Loading...',
+      message: "Loading...",
     };
   },
 
@@ -116,17 +128,20 @@ export default {
     let id = this.$route.params.id;
     if (id) {
       this.film = await Ghibli.getFilm(id);
-      if (this.film.title) {{
-        this.message = 'No Date to show';
-      }}
+      if (this.film.title) {
+        {
+          this.message = "No Date to show";
+        }
+      }
     }
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .3s;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
