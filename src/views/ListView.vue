@@ -10,7 +10,13 @@
     <img src="@/assets/banner-1.png" alt="Banner" height="75px" class="d-block m-auto" />
 
     <!-- Main Content -->
-    <div class="mt-2 mt-md-4 container" style="z-index:60">
+    <div
+      v-if="!films.length"
+      class="mt-5 h-100 w-100 d-flex align-items-center justify-content-center"
+    >
+      {{ message }}
+    </div>
+    <div v-else class="mt-2 mt-md-4 container" style="z-index:60">
       <transition-group name="fade" mode="in-out" tag="div" class="row p-2 p-md-3" >
         <div
           v-for="(film, index) in currentFilms"
@@ -39,6 +45,7 @@ export default {
     return {
       films: [],
       currentPage: 1,
+      message: "Loading...",
     };
   },
 
@@ -58,6 +65,11 @@ export default {
 
   async mounted() {
     this.films = await Ghibli.getFilms();
+    if (this.films.length === 0) {
+      {
+        this.message = "No Date to show";
+      }
+    }
   },
 };
 </script>
